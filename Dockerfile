@@ -13,6 +13,7 @@ COPY        . ./
 
 # Remove akkadia from examples
 RUN         rm -rf /gnoroot/examples/gno.land/r/akkadia
+
 # build gnocore
 FROM        setup-gnocore AS build-gnocore
 # Gnoland
@@ -100,6 +101,8 @@ COPY        --from=build-gnocore /gnoroot/gnovm/stdlibs                         
 COPY        --from=build-gnocore /gnoroot/gnovm/tests/stdlibs                   /gnoroot/gnovm/tests/stdlibs
 COPY        --from=build-gnocore /gnoroot/gno.land/genesis/genesis_txs.jsonl    /gnoroot/gno.land/genesis/genesis_txs.jsonl
 COPY        --from=build-gnocore /gnoroot/gno.land/genesis/genesis_balances.txt /gnoroot/gno.land/genesis/genesis_balances.txt
+COPY        --from=build-gnocore /gnoroot/akkadia/config                        /gnoroot/gnoland-data/config
+COPY        --from=build-gnocore /gnoroot/akkadia/secrets                       /gnoroot/gnoland-data/secrets
 EXPOSE      26656 26657
 ENTRYPOINT  ["/usr/bin/gnoland"]
 
@@ -174,5 +177,7 @@ COPY        --from=build-gnocore /gnoroot/gnovm/stdlibs                         
 COPY        --from=build-gnocore /gnoroot/gnovm/tests/stdlibs                   /gnoroot/gnovm/tests/stdlibs
 COPY        --from=build-gnocore /gnoroot/gno.land/genesis/genesis_txs.jsonl    /gnoroot/gno.land/genesis/genesis_txs.jsonl
 COPY        --from=build-gnocore /gnoroot/gno.land/genesis/genesis_balances.txt /gnoroot/gno.land/genesis/genesis_balances.txt
+COPY        --from=build-gnocore /gnoroot/misc/deployments/akkadia/config       /gnoroot/gnoland-data/config
+COPY        --from=build-gnocore /gnoroot/misc/deployments/akkadia/secrets      /gnoroot/gnoland-data/secrets
 # gofmt is required by `gnokey maketx addpkg`
 COPY        --from=build-gnocore /usr/local/go/bin/gofmt                        /usr/bin
