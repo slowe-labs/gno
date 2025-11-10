@@ -11,6 +11,8 @@ RUN         --mount=type=cache,target=/go/pkg/mod/,id=gomodcache \
             go mod download -x
 COPY        . ./
 
+# Remove akkadia from examples
+RUN         rm -rf /gnoroot/examples/gno.land/r/akkadia
 # build gnocore
 FROM        setup-gnocore AS build-gnocore
 # Gnoland
