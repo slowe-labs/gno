@@ -475,4 +475,3 @@ proxy_app = "tcp://127.0.0.1:26658"
 
   # Event store parameters
   [tx_event_store.event_store_params]
-/gnoroot/gnoland-data/config # 
